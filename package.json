@@ -23,7 +23,7 @@
     "serve": "^11.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
@@ -31,7 +31,9 @@
     "compile-scss": "node-sass src/assets/scss/black-dashboard-react.scss src/assets/css/black-dashboard-react.css",
     "minify-sass": "node-sass src/assets/scss/black-dashboard-react.scss src/assets/css/black-dashboard-react.min.css --output-style compressed",
     "map-sass": "node-sass src/assets/scss/black-dashboard-react.scss src/assets/css/black-dashboard-react.css --source-map true",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "gulp": "4.0.2",
+    "gulp-append-prepend": "1.0.8"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -47,10 +49,6 @@
     "@types/markerclustererplus": "2.1.33",
     "eslint-plugin-flowtype": "3.13.0",
     "typescript": "3.8.3"
-  },
-  "devDependencies": {
-    "gulp": "4.0.2",
-    "gulp-append-prepend": "1.0.8"
   },
   "engines": {
     "node": "10.x"
