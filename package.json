@@ -6,12 +6,22 @@
   "homepage": "https://demos.creative-tim.com/black-dashboard-react/#/admin/dashboard",
   "dependencies": {
     "@types/react": "16.9.23",
+    "axios": "^0.20.0",
+    "bcrypt": "^5.0.0",
     "chart.js": "2.9.3",
+    "child_process": "^1.0.2",
     "classnames": "2.2.6",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "electron-log": "^4.2.4",
+    "express": "^4.17.1",
     "gulp": "^4.0.2",
     "gulp-append-prepend": "^1.0.8",
     "history": "4.10.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.6",
     "node-sass": "4.13.1",
+    "os": "^0.1.1",
     "perfect-scrollbar": "1.5.0",
     "prop-types": "15.7.2",
     "react": "16.13.0",
@@ -22,7 +32,8 @@
     "react-router-dom": "5.1.2",
     "react-scripts": "^3.4.3",
     "reactstrap": "8.4.1",
-    "serve": "^11.3.2"
+    "serve": "^11.3.2",
+    "x-ray": "^2.3.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -33,7 +44,6 @@
     "compile-scss": "node-sass src/assets/scss/black-dashboard-react.scss src/assets/css/black-dashboard-react.css",
     "minify-sass": "node-sass src/assets/scss/black-dashboard-react.scss src/assets/css/black-dashboard-react.min.css --output-style compressed",
     "map-sass": "node-sass src/assets/scss/black-dashboard-react.scss src/assets/css/black-dashboard-react.css --source-map true"
-    
   },
   "eslintConfig": {
     "extends": "react-app"

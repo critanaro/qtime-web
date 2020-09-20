@@ -14,52 +14,83 @@ require("dotenv").config()
 const Schema = mongoose.Schema;
 const log = require('electron-log');
 
-
-router.post("/launch", async(req,res) =>{
+		
+//checkin 
+router.post("/checkin", async(req,res) =>{
 	try{
-		const conn = mongoose.connection;
-		const fs = require('fs');
-		const path = require('path');
-		const Grid = require('gridfs-stream');
-		
 
-		Grid.mongo = mongoose.mongo;
+		var timeVal = Date.now();
+		console.log("I've checked in :o");
+		console.log(timeVal);
+		return res.json({startTime: timeVal});
+	}catch(err){
+		res.status(500).json({error: err.message});
+	}
+});
 
-		//conn.once('open', () =>{
-			log.info('- Connection open -');
-			const gfs = Grid(conn.db);
+//checkout
+router.post("/checkout", async(req,res) =>{
+	try{
 		
-			const fs_write_stream = fs.createWriteStream(path.join(__dirname,'gatherX.jar'));
-			const readstream = gfs.createReadStream({
-				filename: 'gatherX.jar'
-			});
-			readstream.pipe(fs_write_stream);
+		var timeVal2 = Date.now();
+		console.log("I've checked out :o");
+		console.log(timeVal2);
+		return res.json({endTime: timeVal2});
+	}catch(err){
+		res.status(500).json({error: err.message});
+	}
+});
+
+//update: is called to redefine all of the colors
+router.post("/update", async(req,res) =>{
+	try{	
+		//gonna need to feed in a CSV with the times (compiled from the checkin checkout codes)
+		var shapeOld = parseFloat(req.body.shape);
+		var rangeOld = parseFloat(req.body.range);
+		var dsetOld = req.body.dset;
+		var l1Old= req.shape;
+		var l2Old = req.range;
+		var socialdistOld= req.dset;
+
+		let bayesOut = [];
+
+		//get the output of Steven's script --> list of avg value for time, shape, range 
+		//latter two are used to calibrate the next model
+		var currentPath = process.cwd();
+
+		console.log(shapeOld);
+		exec(`python3 ${currentPath}/data-anal/bayes.py days/dummy_coffee_data.csv 0.5 0 30 30 5`, (err, stdout, stderr) => {
+			bayesOut = stdout.toString().split(',');
+			console.log(stdout);
+			//console.log(`this is the output of the Steven function: ${bayesOut[0]}`);
+			if (err) {
+				console.log(`exec error at Steven: ${err}`);
+				return;
+			}
+			var i;
+			var avgs = [];
+			var colors = [];
+			var shape = [];
+			var range = [];
+			var cil = [];
+			var ciu = [];
 			
-			fs_write_stream.on('close', () =>{
-				log.info('File has been written fully');
-				if(process.platform === "win32"){
-					log.info("launching gatherx on a windows computer");
-					exec(`java -jar ${__dirname}/gatherX.jar | cls "\\e[3J" -f`, (err, stdout, stderr) => {
-						if (err) {
-							log.info(`exec error: ${err}`);
-							return;
-						}
-						});
-				}else if (process.platform === "darwin"){
-					log.info("launching gatherx on a mac computer");
-					exec(`java -jar ${__dirname}/gatherX.jar | clear && printf '\\e[3J'`, (err, stdout, stderr) => {
-						if (err) {
-							log.info(`exec error: ${err}`);
-							return;
-						}
-						});
+
+			for(i = 0; i<bayesOut.length-5; i++){
+				if(i%6 == 0){
+					avgs.push(parseInt(bayesOut[i]));
+					colors.push(bayesOut[i+1]);
+					shape.push(bayesOut[i+2]);
+					range.push(bayesOut[i+3]);
+					cil.push(bayesOut[i+4]);
+					ciu.push(bayesOut[i+5]);
 				}
-
-					log.info("launch complete");
-					return res.json(true);
-			})
-			
-		//});
+			}
+				return res.json({avgs: avgs, colors: colors, shape: shape, range: range, 
+				cil: cil, ciu: ciu});
+		});
+		//this should return the value of the final array of colors
+		
 	}catch(err){
 		res.status(500).json({error: err.message});
 	}
@@ -85,24 +116,6 @@ router.post("/login", async(req,res) =>{
 		res.status(500).json({error: err.message});
 	}
 });
-/*
-router.post("/tokenIsValid", async (req, res) => {
-	try {
-		const token = req.header("x-auth-token");
-		if(!token) return res.json(false);
-
-		const verified = jwt.verify(token, process.env.JWT_SECRET);
-		if(!verified) return res.json(false);
-
-		const user = await User.findById(verified.id);
-		if(!user) return res.json(false);
-
-		return res.json(true);
-	}catch(err){
-		res.status(500).json({error: err.message});
-		}
-})
-*/
 
 router.get("/", async (req, res) => {
 	try{

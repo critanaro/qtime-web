@@ -70,9 +70,6 @@ let chart1_2_options = {
   }
 };
 
-// #########################################
-// // // used inside src/views/Dashboard.js
-// #########################################
 let chartExample1 = {
   data1: canvas => {
     let ctx = canvas.getContext("2d");
@@ -82,23 +79,22 @@ let chartExample1 = {
     gradientStroke.addColorStop(1, "rgba(29,140,248,0.2)");
     gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
     gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
-
     return {
       //change these to the time of day
       // change the data to be from the GET post
       labels: [
-        "8:00am",
-        "9:00am",
+        "9:15am",
+        "9:30am",
+        "9:45am",
         "10:00am",
+        "10:15am",
+        "10:30am",
+        "10:45am",
         "11:00am",
-        "12:00am",
-        "13:00am",
-        "14:00am",
-        "15:00am",
-        "16:00am",
-        "17:00am",
-
-
+        "11:15am",
+        "11:30am",
+        "11:45am",
+        "12:00pm",
       ],
       datasets: [
         {
@@ -116,7 +112,7 @@ let chartExample1 = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: [100, 70, 90, 22, 22, 22, 70, 85, 60, 75, 60, 90, 80, 110, 22, 22, 22, 9]
+          data: [35,32,20,29,45,75,67,23,5,32,20,29,45,75,67,23]
         }
       ]
     };
@@ -214,6 +210,7 @@ let chartExample1 = {
   options: chart1_2_options
 };
 
+
 // #########################################
 // // // used inside src/views/Dashboard.js
 // #########################################
@@ -228,7 +225,7 @@ let chartExample2 = {
     gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
     return {
-      labels: ["JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+      labels: ["8am", "10am", "12pm", "2pm", "4pm", "6pm"],
       datasets: [
         {
           label: "Data",
@@ -267,7 +264,7 @@ let chartExample3 = {
     gradientStroke.addColorStop(0, "rgba(119,52,169,0)"); //purple colors
 
     return {
-      labels: ["USA", "GER", "AUS", "UK", "RO", "BR"],
+      labels: ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat"],
       datasets: [
         {
           label: "Frequency",
@@ -346,7 +343,7 @@ const chartExample4 = {
     gradientStroke.addColorStop(0, "rgba(66,134,121,0)"); //green colors
 
     return {
-      labels: ["JUL", "AUG", "SEP", "OCT", "NOV"],
+      labels: ["MAY", "JUN", "JUL", "AUG", "SEP"],
       datasets: [
         {
           label: "young jit in the cut be like",

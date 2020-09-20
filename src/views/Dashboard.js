@@ -20,6 +20,7 @@ import React from "react";
 import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
+import Axios from 'axios'
 
 // reactstrap components
 import {
@@ -50,6 +51,9 @@ import {
   chartExample4
 } from "variables/charts.js";
 
+
+
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -57,6 +61,7 @@ class Dashboard extends React.Component {
       bigChartData: "data1"
     };
   }
+
   setBgChartData = name => {
     this.setState({
       bigChartData: name
@@ -75,82 +80,6 @@ class Dashboard extends React.Component {
                       <h5 className="card-category">Rice Coffee House</h5>
                       <CardTitle tag="h2">Average Population Density Over Time</CardTitle>
                     </Col>
-                    {/*
-                    <Col sm="6">
-                      <ButtonGroup
-                        className="btn-group-toggle float-right"
-                        data-toggle="buttons"
-                      >
-                        <Button
-                          tag="label"
-                          className={classNames("btn-simple", {
-                            active: this.state.bigChartData === "data1"
-                          })}
-                          color="info"
-                          id="0"
-                          size="sm"
-                          onClick={() => this.setBgChartData("data1")}
-                        >
-                          <input
-                            defaultChecked
-                            className="d-none"
-                            name="options"
-                            type="radio"
-                          />
-                          <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                            Accounts
-                          </span>
-                          <span className="d-block d-sm-none">
-                            <i className="tim-icons icon-single-02" />
-                          </span>
-                        </Button>
-                        <Button
-                          color="info"
-                          id="1"
-                          size="sm"
-                          tag="label"
-                          className={classNames("btn-simple", {
-                            active: this.state.bigChartData === "data2"
-                          })}
-                          onClick={() => this.setBgChartData("data2")}
-                        >
-                          <input
-                            className="d-none"
-                            name="options"
-                            type="radio"
-                          />
-                          <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                            Purchases
-                          </span>
-                          <span className="d-block d-sm-none">
-                            <i className="tim-icons icon-gift-2" />
-                          </span>
-                        </Button>
-                        <Button
-                          color="info"
-                          id="2"
-                          size="sm"
-                          tag="label"
-                          className={classNames("btn-simple", {
-                            active: this.state.bigChartData === "data3"
-                          })}
-                          onClick={() => this.setBgChartData("data3")}
-                        >
-                          <input
-                            className="d-none"
-                            name="options"
-                            type="radio"
-                          />
-                          <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                            Sessions
-                          </span>
-                          <span className="d-block d-sm-none">
-                            <i className="tim-icons icon-tap-02" />
-                          </span>
-                        </Button>
-                      </ButtonGroup>
-                    </Col>
-                        */}
                   </Row>
                 </CardHeader>
                 <CardBody>
@@ -168,10 +97,10 @@ class Dashboard extends React.Component {
             <Col lg="4">
               <Card className="card-chart">
                 <CardHeader>
-                  <h5 className="card-category">Average Population Yesterday</h5>
+                  <h5 className="card-category">Average Population Density Yesterday</h5>
                   <CardTitle tag="h3">
                     <i className="tim-icons icon-bell-55 text-info" />{" "}
-                    763,215
+                    ~ 35
                   </CardTitle>
                 </CardHeader>
                 <CardBody>
@@ -190,7 +119,7 @@ class Dashboard extends React.Component {
                   <h5 className="card-category">Sample Distribution</h5>
                   <CardTitle tag="h3">
                     <i className="tim-icons icon-delivery-fast text-primary" />{" "}
-                    3,500€
+                    Safe to Travel
                   </CardTitle>
                 </CardHeader>
                 <CardBody>
@@ -208,7 +137,7 @@ class Dashboard extends React.Component {
                 <CardHeader>
                   <h5 className="card-category">Your Points</h5>
                   <CardTitle tag="h3">
-                    <i className="tim-icons icon-send text-success" /> 12,100K
+                    <i className="tim-icons icon-send text-success" /> 421
                   </CardTitle>
                 </CardHeader>
                 <CardBody>
